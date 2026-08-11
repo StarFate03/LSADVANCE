@@ -88,7 +88,7 @@ These were flagged `[CONFIRM]` in the copy draft and are **not** on the site yet
 - **Certifications** — ISO, SIRIM, etc. (only if genuinely held).
 - **FRP tank capacity range** (e.g. "from X to Y litres") — concrete numbers get cited more.
 - **Industries / sectors served** and any shareable client types.
-- **Founding story / family background** for the About section.
+- **Company background / founding story** for the About section (per client decision, do NOT use family-business framing — describe the company purely by its manufacturing positioning).
 - **Project photos / case studies** — for a Portfolio section.
 - **Business phone + email** — currently the enquiry form is the only contact channel; no phone/email is shown or in the schema because none was confirmed.
 
