@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="L&amp;S Advance logo">
+  <!-- Hexagon echoing the L&S Advance brand mark: blue outline, yellow fill -->
+  <polygon points="20,6 44,6 60,32 44,58 20,58 4,32"
+           fill="#fcf00f" stroke="#252ec9" stroke-width="5" stroke-linejoin="round"/>
+  <text x="32" y="43" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="34"
+        fill="#252ec9">Ls</text>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lsadvance.com.my/sitemap.xml
