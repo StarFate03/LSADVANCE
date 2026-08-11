@@ -153,7 +153,11 @@ h1, h2, h3, h4 {
   display: flex; align-items: center; gap: .35rem;
   list-style: none; margin: 0; padding: 0;
 }
-.nav-menu a {
+/* Plain text links only — excluded from .btn so the CTA button treatment
+   (higher-specificity element+class rule was overriding .btn-cta and killing
+   its dark text on the yellow fill, rendering the CTA invisible). */
+.nav-menu a:not(.btn) {
+  position: relative;
   display: inline-block;
   text-decoration: none;
   color: var(--paper);
@@ -166,6 +170,14 @@ h1, h2, h3, h4 {
   border-radius: 8px;
 }
 .nav-menu a:not(.btn):hover { color: var(--yellow); background: rgba(255,255,255,.06); }
+
+/* Active page indicator (multi-page nav) */
+.nav-menu a[aria-current="page"]:not(.btn) { color: var(--yellow); }
+.nav-menu a[aria-current="page"]:not(.btn)::after {
+  content: ""; position: absolute; left: .8rem; right: .8rem; bottom: .3rem;
+  height: 2px; background: var(--yellow); border-radius: 2px;
+}
+
 .nav-cta { margin-left: .4rem; padding: .6rem 1.1rem; }
 
 .nav-toggle {
@@ -444,6 +456,82 @@ h1, h2, h3, h4 {
     display: none;
   }
   .nav-menu.open { display: flex; }
-  .nav-menu a { padding: .85rem .4rem; border-radius: 8px; }
-  .nav-cta { margin: .6rem 0 0; text-align: center; }
+  .nav-menu a:not(.btn) { padding: .85rem .4rem; border-radius: 8px; }
+  .nav-menu a[aria-current="page"]:not(.btn)::after { left: .4rem; right: auto; width: 26px; }
+  /* CTA stays a full-width filled button in the mobile dropdown */
+  .nav-cta { margin: .8rem 0 .2rem; width: 100%; }
+}
+
+/* ====================== Inner page headers ======================= */
+.page-hero {
+  position: relative;
+  background:
+    radial-gradient(1100px 460px at 88% -20%, rgba(37,46,201,.5), transparent 60%),
+    linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  color: var(--paper);
+  padding-block: clamp(2.6rem, 7vw, 4.6rem);
+  overflow: hidden;
+}
+.page-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px;
+  background: repeating-linear-gradient(-45deg, var(--yellow) 0 20px, var(--navy-900) 20px 40px);
+  opacity: .85;
+}
+.page-hero .section-head { margin-bottom: .4rem; align-items: baseline; }
+.page-hero .section-num { color: var(--yellow); }
+.page-hero h1 {
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--white);
+  position: relative;
+  padding-bottom: .5rem;
+}
+.page-hero h1::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 56px; height: 4px; background: var(--yellow); border-radius: 3px;
+}
+.page-intro { max-width: 62ch; color: var(--muted); font-size: 1.12rem; margin: 1rem 0 0; }
+
+/* ====================== Homepage teasers ========================= */
+a.service-card { text-decoration: none; color: inherit; display: block; }
+.card-more {
+  display: inline-flex; align-items: center; gap: .35rem;
+  margin-top: 1rem;
+  color: var(--yellow);
+  font-family: var(--ff-display); text-transform: uppercase;
+  letter-spacing: .05em; font-size: .88rem; font-weight: 600;
+}
+a.service-card:hover .card-more { text-decoration: underline; }
+
+.about-teaser { max-width: 66ch; }
+.about-teaser .lead { font-size: clamp(1.15rem, 1rem + .6vw, 1.4rem); color: var(--paper); margin: 0 0 1.3rem; }
+
+/* ========================= CTA band ============================= */
+.cta-band { text-align: center; }
+.cta-band h2 {
+  text-transform: uppercase; color: var(--white);
+  font-size: clamp(1.7rem, 4vw, 2.6rem); margin-bottom: .8rem;
+}
+.cta-band p { color: rgba(255,255,255,.9); max-width: 52ch; margin: 0 auto 1.8rem; font-size: 1.1rem; }
+
+/* ====================== Splash / intro screen ==================== */
+/* Markup + activation script live in index.html ONLY. Hidden by default so
+   inner pages, no-JS loads, and crawlers never see it; index's inline script
+   adds .is-active on a first visit per session when motion is allowed. */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy-900);
+  display: none; place-items: center;
+}
+.splash.is-active { display: grid; }
+.splash.is-hiding { opacity: 0; transition: opacity .3s ease; }
+.splash.is-done { display: none !important; }
+.splash-mark { width: min(44vw, 200px); height: auto; }
+.splash-mark text { font-family: var(--ff-display); font-weight: 700; text-transform: uppercase; }
+.splash-base { fill: rgba(255,255,255,.12); }
+.splash-fill { fill: var(--yellow); clip-path: inset(100% 0 0 0); }
+.splash.is-active .splash-fill { animation: lsFill .9s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes lsFill { to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .splash { display: none !important; }
 }

@@ -40,6 +40,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://lsadvance.com.my/#organization",
     "name": "L&S Advance Sdn. Bhd.",
     "url": "https://lsadvance.com.my/",
     "logo": "https://lsadvance.com.my/Assets/LS%20Logo.png",
@@ -55,7 +56,7 @@
   }
   </script>
 
-  <!-- LocalBusiness -->
+  <!-- LocalBusiness (present sitewide for consistency) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,108 +75,48 @@
       "postalCode": "42700",
       "addressCountry": "MY"
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Malaysia"
-    }
-  }
-  </script>
-
-  <!-- Services -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Fiberglass Services",
-    "provider": { "@type": "Organization", "name": "L&S Advance Sdn. Bhd." },
-    "areaServed": { "@type": "Country", "name": "Malaysia" },
-    "description": "Design, molding, and finishing of fiberglass-reinforced components for industrial and commercial applications, handled end-to-end from specification to finished product."
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "FRP Process Tanks",
-    "provider": { "@type": "Organization", "name": "L&S Advance Sdn. Bhd." },
-    "areaServed": { "@type": "Country", "name": "Malaysia" },
-    "description": "Fabrication of corrosion-resistant FRP (Fiber Reinforced Plastic) process tanks used to store or process chemicals and industrial fluids in manufacturing and processing plants."
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Fiberglass Fabrication",
-    "provider": { "@type": "Organization", "name": "L&S Advance Sdn. Bhd." },
-    "areaServed": { "@type": "Country", "name": "Malaysia" },
-    "description": "Custom manufacturing of fiberglass parts and structures built to a client's own specifications and engineering drawings."
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Subcontract Manufacturing",
-    "provider": { "@type": "Organization", "name": "L&S Advance Sdn. Bhd." },
-    "areaServed": { "@type": "Country", "name": "Malaysia" },
-    "description": "Production of fiberglass and FRP components on behalf of other companies, working to their specifications as an extension of their own production line."
-  }
-  </script>
-
-  <!-- FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What does L&S Advance manufacture?",
-        "acceptedAnswer": { "@type": "Answer", "text": "L&S Advance manufactures fiberglass and FRP (Fiber Reinforced Plastic) products, including FRP process tanks and custom fiberglass fabrication, for industrial and commercial clients in Malaysia." }
-      },
-      {
-        "@type": "Question",
-        "name": "Where is L&S Advance located?",
-        "acceptedAnswer": { "@type": "Answer", "text": "L&S Advance is based in Banting, Selangor, Malaysia, at Lot 173, Jalan 3, Kompleks Perabot Olak Lempit, 42700 Banting." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is an FRP process tank used for?",
-        "acceptedAnswer": { "@type": "Answer", "text": "An FRP process tank is used to store or process chemicals and industrial fluids. FRP is chosen for this purpose because it resists corrosion in ways that metal tanks often cannot." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does L&S Advance do subcontract manufacturing?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. L&S Advance produces fiberglass and FRP components on behalf of other companies, working to their specifications as an extension of their existing production line." }
-      },
-      {
-        "@type": "Question",
-        "name": "How long has L&S Advance been in operation?",
-        "acceptedAnswer": { "@type": "Answer", "text": "L&S Advance has been in operation since December 26, 2014 — over 11 years of continuous fiberglass and FRP manufacturing in Malaysia." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is fiberglass fabrication?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Fiberglass fabrication is the custom manufacturing of fiberglass parts and structures, built to a client's own specifications and engineering drawings rather than mass-produced from a fixed catalog." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does L&S Advance work from custom drawings or specifications?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, L&S Advance fabricates to client-supplied specifications and drawings for custom fiberglass and FRP components." }
-      }
-    ]
+    "areaServed": { "@type": "Country", "name": "Malaysia" }
   }
   </script>
   <!-- =================== End JSON-LD Structured Data =================== -->
 </head>
 <body>
 
+  <!-- ============================ SPLASH ============================ -->
+  <!-- First-visit intro only. Hidden by default (CSS display:none); the inline
+       script below activates it once per browser session when motion is allowed.
+       It sits on top of fully-present HTML and never gates content from crawlers. -->
+  <div id="splash" class="splash" aria-hidden="true">
+    <svg class="splash-mark" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <text class="splash-base" x="100" y="90" text-anchor="middle" font-size="86">LS</text>
+      <text class="splash-fill" x="100" y="90" text-anchor="middle" font-size="86">LS</text>
+    </svg>
+  </div>
+  <script>
+    (function () {
+      var s = document.getElementById("splash");
+      if (!s) { return; }
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var seen;
+      try { seen = sessionStorage.getItem("lsSplashSeen"); } catch (e) {}
+      if (reduce || seen) { return; }            /* stay hidden -> instant content */
+      try { sessionStorage.setItem("lsSplashSeen", "1"); } catch (e) {}
+      s.classList.add("is-active");              /* added before hero paints (no flash) */
+      var root = document.documentElement;
+      root.style.overflow = "hidden";
+      window.setTimeout(function () {
+        s.classList.add("is-hiding");            /* ~300ms fade reveal */
+        root.style.overflow = "";
+        window.setTimeout(function () { s.classList.add("is-done"); }, 340);
+      }, 900);                                   /* fill runs ~900ms first */
+    })();
+  </script>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" id="top">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="#top" aria-label="L&amp;S Advance Sdn. Bhd. home">
+      <a class="brand" href="index.html" aria-current="page" aria-label="L&amp;S Advance Sdn. Bhd. home">
         <span class="brand-chip">
           <img src="Assets/LS Logo.png" width="1448" height="1086" alt="L&amp;S Advance Sdn. Bhd. logo" class="brand-logo">
         </span>
@@ -189,11 +130,11 @@
       </button>
 
       <ul class="nav-menu" id="navMenu">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a class="btn btn-cta nav-cta" href="#contact">Request a Quote</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn btn-cta nav-cta" href="contact.html">Request a Quote</a></li>
       </ul>
     </nav>
   </header>
@@ -207,8 +148,8 @@
         <h1 id="hero-title" class="hero-title">L&amp;S Advance Sdn. Bhd.<span class="hero-title-sub">Fiberglass &amp; FRP Manufacturing in Banting, Selangor</span></h1>
         <p class="hero-lead">L&amp;S Advance Sdn. Bhd. is a fiberglass and FRP (Fiber Reinforced Plastic) manufacturer based in Banting, Selangor, Malaysia, specializing in FRP process tanks, fiberglass fabrication, and subcontract manufacturing since 2014.</p>
         <div class="hero-actions">
-          <a class="btn btn-cta" href="#contact">Request a Quote</a>
-          <a class="btn btn-ghost" href="#services">View Our Services</a>
+          <a class="btn btn-cta" href="contact.html">Request a Quote</a>
+          <a class="btn btn-ghost" href="services.html">View Our Services</a>
         </div>
         <ul class="hero-stats" aria-label="Company highlights">
           <li><span class="stat-num">2014</span><span class="stat-label">Established</span></li>
@@ -218,174 +159,60 @@
       </div>
     </section>
 
-    <!-- ============================ ABOUT ============================ -->
-    <section class="band band-light section" id="about" aria-labelledby="about-title">
+    <!-- ========================= WHAT WE DO ========================= -->
+    <section class="band band-light section" aria-labelledby="do-title">
       <div class="wrap">
         <div class="section-head">
           <span class="section-num" aria-hidden="true">01</span>
-          <h2 id="about-title">About L&amp;S Advance</h2>
-        </div>
-        <div class="prose">
-          <p class="lead">L&amp;S Advance Sdn. Bhd. is a Malaysian fiberglass and FRP manufacturer headquartered in Banting, Selangor, in continuous operation since December 26, 2014 — over 11 years serving the Malaysian FRP manufacturing sector.</p>
-          <p>L&amp;S Advance is a family-run manufacturing business, built on direct hands-on fiberglass fabrication experience. The company operates from its facility in Banting, Selangor, producing FRP process tanks, custom fiberglass fabrication, and subcontract manufacturing work.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================== SERVICES =========================== -->
-    <section class="band band-dark section" id="services" aria-labelledby="services-title">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-num" aria-hidden="true">02</span>
-          <h2 id="services-title">Services</h2>
+          <h2 id="do-title">What We Do</h2>
         </div>
         <p class="section-intro">L&amp;S Advance delivers four core fiberglass and FRP manufacturing services, each fabricated to specification.</p>
 
         <div class="services-grid">
-          <article class="service-card">
+          <a class="service-card" href="services.html">
             <h3>Fiberglass Services</h3>
-            <p>Fiberglass services cover the design, molding, and finishing of fiberglass-reinforced components for industrial and commercial applications. L&amp;S Advance handles this process end-to-end, from initial specification through to finished product.</p>
-          </article>
-
-          <article class="service-card">
+            <p>Design, molding, and finishing of fiberglass-reinforced components for industrial and commercial applications — handled end-to-end.</p>
+            <span class="card-more">Learn more →</span>
+          </a>
+          <a class="service-card" href="services.html">
             <h3>FRP Process Tanks</h3>
-            <p>An FRP process tank is a corrosion-resistant vessel built from Fiber Reinforced Plastic, used to store or process chemicals and other industrial fluids in manufacturing and processing plants. L&amp;S Advance fabricates FRP process tanks to order.</p>
-          </article>
-
-          <article class="service-card">
+            <p>Corrosion-resistant FRP vessels for storing or processing chemicals and industrial fluids in manufacturing and processing plants.</p>
+            <span class="card-more">Learn more →</span>
+          </a>
+          <a class="service-card" href="services.html">
             <h3>Fiberglass Fabrication</h3>
-            <p>Fiberglass fabrication is the custom manufacturing of fiberglass parts and structures built to a client's own specifications and engineering drawings. L&amp;S Advance fabricates to order rather than from a fixed catalog.</p>
-          </article>
-
-          <article class="service-card">
+            <p>Custom manufacturing of fiberglass parts and structures built to your own specifications and engineering drawings.</p>
+            <span class="card-more">Learn more →</span>
+          </a>
+          <a class="service-card" href="services.html">
             <h3>Subcontract Manufacturing</h3>
-            <p>Subcontract manufacturing means L&amp;S Advance produces fiberglass and FRP components on behalf of other companies, working to their specifications as an extension of their own production line. It suits clients who need overflow capacity or don't run in-house fiberglass fabrication.</p>
-          </article>
+            <p>Production of fiberglass and FRP components on your behalf, as an extension of your own production line.</p>
+            <span class="card-more">Learn more →</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!--
-      ============================================================
-      OMITTED PENDING CONFIRMED FACTS (do not publish invented data)
-      ------------------------------------------------------------
-      03 / PROCESS & CAPABILITIES  — needs: materials/resin systems,
-           fabrication method (hand lay-up / spray-up / filament winding),
-           equipment, facility size, production capacity, certifications.
-      04 / PROJECTS / PORTFOLIO    — needs: real project photos / case studies.
-      Add these sections here once verified, then renumber the visible
-      section numerals and add matching nav links + Service/ItemList schema.
-      ============================================================
-    -->
-
-    <!-- ============================= FAQ ============================= -->
-    <section class="band band-light section" id="faq" aria-labelledby="faq-title">
+    <!-- ======================== ABOUT TEASER ======================= -->
+    <section class="band band-dark section" aria-labelledby="about-teaser-title">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-num" aria-hidden="true">03</span>
-          <h2 id="faq-title">Frequently Asked Questions</h2>
+          <span class="section-num" aria-hidden="true">02</span>
+          <h2 id="about-teaser-title">About L&amp;S Advance</h2>
         </div>
-
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>What does L&amp;S Advance manufacture?</summary>
-            <div class="faq-answer"><p>L&amp;S Advance manufactures fiberglass and FRP (Fiber Reinforced Plastic) products, including FRP process tanks and custom fiberglass fabrication, for industrial and commercial clients in Malaysia.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>Where is L&amp;S Advance located?</summary>
-            <div class="faq-answer"><p>L&amp;S Advance is based in Banting, Selangor, Malaysia, at Lot 173, Jalan 3, Kompleks Perabot Olak Lempit, 42700 Banting.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>What is an FRP process tank used for?</summary>
-            <div class="faq-answer"><p>An FRP process tank is used to store or process chemicals and industrial fluids. FRP is chosen for this purpose because it resists corrosion in ways that metal tanks often cannot.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>Does L&amp;S Advance do subcontract manufacturing?</summary>
-            <div class="faq-answer"><p>Yes. L&amp;S Advance produces fiberglass and FRP components on behalf of other companies, working to their specifications as an extension of their existing production line.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>How long has L&amp;S Advance been in operation?</summary>
-            <div class="faq-answer"><p>L&amp;S Advance has been in operation since December 26, 2014 — over 11 years of continuous fiberglass and FRP manufacturing in Malaysia.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>What is fiberglass fabrication?</summary>
-            <div class="faq-answer"><p>Fiberglass fabrication is the custom manufacturing of fiberglass parts and structures, built to a client's own specifications and engineering drawings rather than mass-produced from a fixed catalog.</p></div>
-          </details>
-
-          <details class="faq-item">
-            <summary>Does L&amp;S Advance work from custom drawings or specifications?</summary>
-            <div class="faq-answer"><p>Yes, L&amp;S Advance fabricates to client-supplied specifications and drawings for custom fiberglass and FRP components.</p></div>
-          </details>
+        <div class="about-teaser">
+          <p class="lead">L&amp;S Advance Sdn. Bhd. is a Malaysian fiberglass and FRP manufacturer headquartered in Banting, Selangor, in continuous operation since December 26, 2014 — over 11 years serving the Malaysian FRP manufacturing sector.</p>
+          <a class="btn btn-cta" href="about.html">More About Us</a>
         </div>
       </div>
     </section>
 
-    <!-- =========================== CONTACT =========================== -->
-    <section class="band band-accent section" id="contact" aria-labelledby="contact-title">
+    <!-- ========================== CTA BAND ========================= -->
+    <section class="band band-accent section cta-band" aria-labelledby="cta-title">
       <div class="wrap">
-        <div class="section-head section-head-accent">
-          <span class="section-num" aria-hidden="true">04</span>
-          <h2 id="contact-title">Contact / Enquiry</h2>
-        </div>
-        <p class="section-intro">Get in touch with L&amp;S Advance for a quote on fiberglass fabrication, FRP process tanks, or subcontract manufacturing work.</p>
-
-        <div class="contact-grid">
-          <div class="contact-info">
-            <h3>L&amp;S Advance Sdn. Bhd.</h3>
-            <address>
-              Lot 173, Jalan 3, Kompleks Perabot Olak Lempit<br>
-              42700 Banting, Selangor<br>
-              Malaysia
-            </address>
-          </div>
-
-          <!--
-            Enquiry form — replace the action URL below with a real form handler
-            (e.g. a Formspree endpoint https://formspree.io/f/XXXXXXXX, or your
-            host's form service). The form is fully functional once the action is set.
-          -->
-          <form class="enquiry-form" id="enquiryForm" action="#" method="POST" novalidate>
-            <div class="field">
-              <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="company">Company</label>
-              <input type="text" id="company" name="company" autocomplete="organization">
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
-                <input type="email" id="email" name="email" autocomplete="email" required>
-              </div>
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" autocomplete="tel">
-              </div>
-            </div>
-            <div class="field">
-              <label for="service">Service Interested In</label>
-              <select id="service" name="service">
-                <option value="">Select a service…</option>
-                <option value="Fiberglass Services">Fiberglass Services</option>
-                <option value="FRP Process Tanks">FRP Process Tanks</option>
-                <option value="Fiberglass Fabrication">Fiberglass Fabrication</option>
-                <option value="Subcontract Manufacturing">Subcontract Manufacturing</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
-              <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-cta btn-block">Send Enquiry</button>
-            <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
-          </form>
-        </div>
+        <h2 id="cta-title">Start Your FRP Project</h2>
+        <p>Tell us about your fiberglass fabrication, FRP process tank, or subcontract manufacturing requirements and we'll get back to you with a quote.</p>
+        <a class="btn btn-cta" href="contact.html">Request a Quote</a>
       </div>
     </section>
 
@@ -404,10 +231,10 @@
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
 
