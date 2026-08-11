@@ -123,6 +123,16 @@ These were flagged `[CONFIRM]` in the copy draft and are **not** on the site yet
 - **Company background / founding story** for the About section (per client decision, do NOT use family-business framing — describe the company purely by its manufacturing positioning).
 - **Project photos / case studies** — for a Portfolio section.
 - **Business phone + email** — currently the enquiry form is the only contact channel; no phone/email is shown or in the schema because none was confirmed.
+- **FlexiDynamic partner credential** — client confirmed L&S subcontracts for FlexiDynamic Holdings Berhad. NOT yet named on the live site (public naming of a client/partner needs their sign-off). Once approved, add it to the hero trust line / an "Industries" or "Partners" note.
+- **Industries list** (`index.html` "Industries We Serve") — currently derived from the product range; client to confirm/trim the six sectors.
+- **Product spec figures** — the mono spec line under each product (`.product-spec`) uses true type descriptors + "Built to order". Add real capacity/size ranges, resin/material, and fabrication method when available.
+
+## Design language (de-AI refinements)
+
+- **Mono kicker system:** `.kicker` (IBM Plex Mono, uppercase, with a small yellow hexagon `.kicker-hex`) replaces the old decorative `01/02/03` numerals above section headings — engineered/branded, not templated.
+- **Accent discipline:** yellow is now reserved for CTAs, the kicker mark, and hover states. The blanket heading underlines and permanent card rails were removed.
+- **Photo hero:** the homepage hero uses a real product photo (`Assets/products/frp-scrubber-tower.webp`) behind a heavy navy scrim (text stays AA-legible).
+- **Fonts:** Oswald (display) + Inter (body) + **IBM Plex Mono** (kickers, specs, reg-no, stat labels).
 
 Placeholders for the omitted **Process** and **Portfolio** sections are left as HTML comments in `index.html` where they should slot in (remember to renumber the visible section numbers and add nav links when you add them).
 
