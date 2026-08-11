@@ -68,48 +68,8 @@
   var reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------------------------------------------------------------
-     Auto-hide header — reveal on hover near the top edge (pointer
-     devices) or on scroll-up (touch). Always shown at the very top
-     of the page, while hovering the header, and on keyboard focus.
-     Disabled entirely for reduced-motion users.
-     --------------------------------------------------------------- */
-  var header = document.querySelector(".site-header");
-  if (header && !reduceMotion) {
-    var canHover = window.matchMedia && window.matchMedia("(hover: hover)").matches;
-    var hoveringHeader = false;
-    var lastY = window.scrollY || 0;
-    var TOP_ZONE = 70;   /* px from the top that reveals the header on hover */
-
-    function show() { header.classList.remove("nav-hidden"); }
-    function hide() { header.classList.add("nav-hidden"); }
-
-    header.addEventListener("mouseenter", function () { hoveringHeader = true; show(); });
-    header.addEventListener("mouseleave", function () { hoveringHeader = false; });
-    header.addEventListener("focusin", show);
-
-    function onScroll() {
-      var y = window.scrollY || 0;
-      var menuOpen = menu && menu.classList.contains("open");
-      if (y <= 10 || hoveringHeader || menuOpen) {
-        show();
-      } else if (canHover) {
-        hide();                     /* pointer devices reveal via hover zone */
-      } else {
-        if (y > lastY + 4) { hide(); }        /* scrolling down */
-        else if (y < lastY - 4) { show(); }   /* scrolling up   */
-      }
-      lastY = y;
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    if (canHover) {
-      window.addEventListener("mousemove", function (e) {
-        if (e.clientY <= TOP_ZONE) { show(); }
-        else if ((window.scrollY || 0) > 10 && !hoveringHeader) { hide(); }
-      }, { passive: true });
-    }
-  }
+  /* Header stays fixed/visible at all times (the stacked-card sections need a
+     persistent reference bar), so no auto-hide behaviour is wired up. */
 
   /* ---------------------------------------------------------------
      Stacked-card scroll (homepage 01/02/03). The stacking itself is pure

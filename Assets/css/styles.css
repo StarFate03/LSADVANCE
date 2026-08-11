@@ -139,7 +139,7 @@ h1, h2, h3, h4 {
   padding: .6rem var(--pad);
 }
 
-.brand { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: .95rem; text-decoration: none; }
 /* Transparent logo sits directly on the dark bar — no white chip/box. */
 .brand-logo { width: auto; height: 56px; display: block; }
 .brand-name {
@@ -416,10 +416,10 @@ h1, h2, h3, h4 {
 /* ------------------------------ Footer ---------------------------- */
 .site-footer { background: var(--navy-900); color: var(--paper); }
 .footer-grid {
-  display: grid; grid-template-columns: 1fr; gap: 2rem;
-  padding-block: clamp(2.5rem, 6vw, 4rem);
+  display: grid; grid-template-columns: 1fr; gap: 1.6rem;
+  padding-block: clamp(1.6rem, 3.5vw, 2.6rem);
 }
-.footer-brand .brand-logo { height: 72px; margin-bottom: 1rem; }
+.footer-brand .brand-logo { height: 60px; margin-bottom: .8rem; }
 .footer-tagline { color: var(--muted); max-width: 34ch; margin: 0; }
 .footer-col h4 {
   font-family: var(--ff-display); text-transform: uppercase; letter-spacing: .08em;
@@ -430,7 +430,7 @@ h1, h2, h3, h4 {
 .footer-col a:hover { color: var(--yellow); }
 .footer-col address { font-style: normal; color: var(--muted); line-height: 1.8; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); }
-.footer-bottom .wrap { padding-block: 1.2rem; }
+.footer-bottom .wrap { padding-block: .9rem; }
 .footer-bottom p { margin: 0; color: var(--muted); font-size: .9rem; }
 
 /* =========================== Responsive =========================== */
@@ -641,9 +641,14 @@ a.service-card:hover .card-more { text-decoration: underline; }
   .stack > .stack-section:nth-of-type(1) { z-index: 1; }
   .stack > .stack-section:nth-of-type(2) { z-index: 2; }
   .stack > .stack-section:nth-of-type(3) { z-index: 3; }
+  .stack > .stack-section:nth-of-type(4) { z-index: 4; }
+  .stack > .stack-section:nth-of-type(5) { z-index: 5; }
   .stack-inner { transform: scale(calc(1 - var(--cover) * .05)); transform-origin: center top; }
   .stack-dim { opacity: calc(var(--cover) * .55); }
 }
+/* Keep the About image static inside a pinned stack card (its page-level
+   sticky behaviour is only meant for the normal-scroll About page). */
+.stack .about-figure { position: static; }
 
 /* ======================= About two-column ===================== */
 .about-layout { display: grid; gap: 2rem; grid-template-columns: 1fr; align-items: start; }
