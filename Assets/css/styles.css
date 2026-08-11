@@ -204,14 +204,11 @@ h1, h2, h3, h4 {
     linear-gradient(180deg, var(--navy-800), var(--navy-900));
   overflow: hidden;
 }
-/* subtle hazard-stripe accent at the base */
-.hero::after {
-  content: "";
-  position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
-  background: repeating-linear-gradient(-45deg, var(--yellow) 0 22px, var(--navy-900) 22px 44px);
-  opacity: .9;
+.hero-inner {
+  padding-top: clamp(3rem, 7vw, 5.5rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative; z-index: 1;
 }
-.hero-inner { padding-block: clamp(3.5rem, 9vw, 7rem); position: relative; z-index: 1; }
 
 .hero-eyebrow {
   display: inline-block;
@@ -475,11 +472,6 @@ h1, h2, h3, h4 {
   padding-block: clamp(2.6rem, 7vw, 4.6rem);
   overflow: hidden;
 }
-.page-hero::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px;
-  background: repeating-linear-gradient(-45deg, var(--yellow) 0 20px, var(--navy-900) 20px 40px);
-  opacity: .85;
-}
 .page-hero .section-head { margin-bottom: .4rem; align-items: baseline; }
 .page-hero .section-num { color: var(--yellow); }
 .page-hero h1 {
@@ -549,10 +541,12 @@ a.service-card:hover .card-more { text-decoration: underline; }
 /* Full logo (hexagon shape + "Ls") revealing/filling bottom-to-top. Two stacked
    copies of the transparent logo: a faint base + the full-colour copy clipped
    from the bottom edge upward. */
-.splash-logo { position: relative; width: min(46vw, 220px); line-height: 0; }
-.splash-logo img { width: 100%; height: auto; display: block; }
+/* aspect-ratio + object-fit:contain guarantees the logo keeps its true
+   837:643 proportions (no stretching of the absolutely-positioned fill copy). */
+.splash-logo { position: relative; width: min(46vw, 210px); aspect-ratio: 837 / 643; line-height: 0; }
+.splash-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .splash-logo-base { opacity: .16; }
-.splash-logo-fill { position: absolute; inset: 0; clip-path: inset(100% 0 0 0); }
+.splash-logo-fill { clip-path: inset(100% 0 0 0); }
 .splash.is-active .splash-logo-fill { animation: lsFill .9s cubic-bezier(.4,0,.2,1) forwards; }
 @keyframes lsFill { to { clip-path: inset(0 0 0 0); } }
 @media (prefers-reduced-motion: reduce) {
@@ -627,24 +621,28 @@ a.service-card:hover .card-more { text-decoration: underline; }
 .footer-legal a { color: var(--muted); text-decoration: none; }
 .footer-legal a:hover { color: var(--yellow); }
 
-/* =============== Scroll reveal (whole-section slide) =========== */
-/* Each numbered homepage section slides up as a single unit when it scrolls
-   into view. Applied to the section's inner .wrap in index.html. Isolated so
-   it is easy to revert: remove the .reveal classes + this block + the JS
-   observer. */
-.reveal {
-  opacity: 0;
-  transform: translateY(60px);
-  transition: opacity .6s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
-}
-.reveal.is-visible { opacity: 1; transform: none; }
+/* ============== Stacked-card scroll (homepage 01/02/03) ======== */
+/* The three numbered sections are wrapped in .stack; each pins to the top of
+   the viewport and the next one rises over it like a dealt card. The core
+   stacking is pure CSS (position:sticky + increasing z-index); JS only drives
+   the --cover value that scales down + dims the covered section. Disabled below
+   768px and for reduced-motion, where the sections scroll normally in flow.
+   All content is always real HTML — nothing is injected on scroll. */
+.stack-section { position: relative; --cover: 0; }
+.stack-dim { position: absolute; inset: 0; background: #05081f; opacity: 0; pointer-events: none; z-index: 4; }
+.stack-inner { position: relative; z-index: 2; }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-/* Safety: if JavaScript is disabled, never leave revealed content hidden. */
-@media (scripting: none) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .stack-section {
+    position: sticky; top: 0; min-height: 100vh;
+    display: flex; align-items: center;
+    box-shadow: 0 -30px 70px -25px rgba(4, 8, 35, .6);
+  }
+  .stack > .stack-section:nth-of-type(1) { z-index: 1; }
+  .stack > .stack-section:nth-of-type(2) { z-index: 2; }
+  .stack > .stack-section:nth-of-type(3) { z-index: 3; }
+  .stack-inner { transform: scale(calc(1 - var(--cover) * .05)); transform-origin: center top; }
+  .stack-dim { opacity: calc(var(--cover) * .55); }
 }
 
 /* ======================= About two-column ===================== */

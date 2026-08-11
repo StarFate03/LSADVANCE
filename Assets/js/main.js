@@ -112,23 +112,41 @@
   }
 
   /* ---------------------------------------------------------------
-     Scroll reveal (card swipe-up) for homepage sections/cards.
-     Isolated so it is easy to revert.
+     Stacked-card scroll (homepage 01/02/03). The stacking itself is pure
+     CSS (position:sticky + z-index); this only drives the --cover value that
+     scales down + dims the section being covered. Disabled below 768px and for
+     reduced-motion, where the sections scroll normally. Isolated for easy
+     revert (remove .stack markup + the stack CSS block + this handler).
      --------------------------------------------------------------- */
-  var revealEls = document.querySelectorAll(".reveal");
-  if (revealEls.length) {
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
-    } else {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) {
-            en.target.classList.add("is-visible");
-            io.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-      revealEls.forEach(function (el) { io.observe(el); });
+  var stackSecs = [].slice.call(document.querySelectorAll(".stack-section"));
+  if (stackSecs.length) {
+    var stackMq = window.matchMedia("(min-width: 768px)");
+    var stackTicking = false;
+
+    function stackUpdate() {
+      stackTicking = false;
+      var active = stackMq.matches && !reduceMotion;
+      if (!active) {
+        stackSecs.forEach(function (s) { s.style.setProperty("--cover", "0"); });
+        return;
+      }
+      var vh = window.innerHeight;
+      for (var i = 0; i < stackSecs.length; i++) {
+        var cover = 0;
+        if (i < stackSecs.length - 1) {
+          var nextTop = stackSecs[i + 1].getBoundingClientRect().top;
+          cover = Math.min(Math.max((vh - nextTop) / vh, 0), 1);
+        }
+        stackSecs[i].style.setProperty("--cover", cover.toFixed(3));
+      }
     }
+
+    function stackTick() {
+      if (!stackTicking) { stackTicking = true; requestAnimationFrame(stackUpdate); }
+    }
+
+    window.addEventListener("scroll", stackTick, { passive: true });
+    window.addEventListener("resize", stackTick);
+    stackUpdate();
   }
 })();
