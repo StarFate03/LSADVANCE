@@ -534,14 +534,6 @@ a.service-card:hover .card-more { text-decoration: underline; }
 @media (min-width: 620px) { .products-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 920px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
 
-/* ========================= CTA band ============================= */
-.cta-band { text-align: center; }
-.cta-band h2 {
-  text-transform: uppercase; color: var(--white);
-  font-size: clamp(1.7rem, 4vw, 2.6rem); margin-bottom: .8rem;
-}
-.cta-band p { color: rgba(255,255,255,.9); max-width: 52ch; margin: 0 auto 1.8rem; font-size: 1.1rem; }
-
 /* ====================== Splash / intro screen ==================== */
 /* Markup + activation script live in index.html ONLY. Hidden by default so
    inner pages, no-JS loads, and crawlers never see it; index's inline script
@@ -567,25 +559,42 @@ a.service-card:hover .card-more { text-decoration: underline; }
   .splash { display: none !important; }
 }
 
-/* ================= Contact — full-page centered form ============= */
-.contact-full {
-  min-height: 100vh;
-  display: grid; place-items: center;
-  padding: 6.5rem var(--pad) 3.5rem;   /* clear the sticky header */
+/* ================= Contact — split (form + details) ============= */
+.contact-split {
+  padding-block: clamp(3rem, 8vw, 6rem);
   background:
-    radial-gradient(1000px 500px at 80% -10%, rgba(37,46,201,.4), transparent 60%),
+    radial-gradient(1000px 500px at 85% -10%, rgba(37,46,201,.4), transparent 60%),
     linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  color: var(--paper);
 }
-.contact-inner { width: 100%; max-width: 540px; }
-.contact-inner h1 {
-  text-transform: uppercase; text-align: center; color: var(--white);
+.split-title {
+  text-transform: uppercase; color: var(--white);
   font-size: clamp(1.9rem, 5vw, 2.8rem);
+  position: relative; padding-bottom: .5rem;
 }
-.contact-inner h1::after {
-  content: ""; display: block; width: 56px; height: 4px;
-  background: var(--yellow); border-radius: 3px; margin: .8rem auto 0;
+.split-title::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 56px; height: 4px; background: var(--yellow); border-radius: 3px;
 }
-.contact-sub { text-align: center; color: var(--muted); margin: 1rem 0 1.9rem; }
+.contact-sub { color: var(--muted); margin: 1rem 0 2.4rem; max-width: 62ch; }
+.contact-split-grid { display: grid; gap: 2.4rem; grid-template-columns: 1fr; }
+@media (min-width: 880px) {
+  .contact-split-grid { grid-template-columns: 1.05fr .95fr; align-items: start; }
+}
+.contact-details h2 {
+  text-transform: uppercase; color: var(--yellow);
+  font-size: 1.4rem; margin-bottom: 1.5rem;
+}
+.contact-detail { display: flex; gap: .9rem; margin-bottom: 1.4rem; }
+.contact-detail .ic { color: var(--yellow); flex: 0 0 auto; margin-top: .15rem; }
+.contact-detail-label {
+  display: block; font-family: var(--ff-display);
+  text-transform: uppercase; letter-spacing: .08em; font-size: .78rem;
+  color: var(--muted); margin-bottom: .15rem;
+}
+.contact-detail-value { display: block; color: var(--paper); font-size: 1.05rem; line-height: 1.6; }
+.contact-detail-value a { color: var(--paper); text-decoration: none; }
+.contact-detail-value a:hover { color: var(--yellow); }
 
 /* ===================== 404 — page not found ===================== */
 .notfound {
@@ -618,52 +627,24 @@ a.service-card:hover .card-more { text-decoration: underline; }
 .footer-legal a { color: var(--muted); text-decoration: none; }
 .footer-legal a:hover { color: var(--yellow); }
 
-/* ============ Scroll reveal (sequential card turn-up) ========== */
-/* Applied to homepage sections/cards. Isolated so it is easy to revert:
-   remove the .reveal classes in index.html + this block + the JS observer. */
-
-/* Base reveal (plain blocks, e.g. the About teaser): simple slide-up. */
+/* =============== Scroll reveal (whole-section slide) =========== */
+/* Each numbered homepage section slides up as a single unit when it scrolls
+   into view. Applied to the section's inner .wrap in index.html. Isolated so
+   it is easy to revert: remove the .reveal classes + this block + the JS
+   observer. */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity .55s ease, transform .6s cubic-bezier(.2, .7, .2, 1);
+  transform: translateY(60px);
+  transition: opacity .6s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
 }
 .reveal.is-visible { opacity: 1; transform: none; }
 
-/* Cards: "slide up and turn into place" — start dropped + tilted back on the
-   X axis, then rise and rotate flat, one after another (sequential stagger). */
-.services-grid, .products-grid { perspective: 1200px; }
-.service-card.reveal, .product-card.reveal {
-  transform: translateY(64px) rotateX(-22deg) scale(.97);
-  transform-origin: center bottom;
-  transition: opacity .55s ease, transform .75s cubic-bezier(.2, .75, .25, 1);
-}
-.service-card.reveal.is-visible, .product-card.reveal.is-visible {
-  transform: translateY(0) rotateX(0) scale(1);
-}
-
-/* Sequential stagger — each card turns up clearly after the previous one. */
-.services-grid > .reveal:nth-child(1) { transition-delay: 0s; }
-.services-grid > .reveal:nth-child(2) { transition-delay: .16s; }
-.services-grid > .reveal:nth-child(3) { transition-delay: .32s; }
-.services-grid > .reveal:nth-child(4) { transition-delay: .48s; }
-.products-grid > .reveal:nth-child(1) { transition-delay: 0s; }
-.products-grid > .reveal:nth-child(2) { transition-delay: .1s; }
-.products-grid > .reveal:nth-child(3) { transition-delay: .2s; }
-.products-grid > .reveal:nth-child(4) { transition-delay: .3s; }
-.products-grid > .reveal:nth-child(5) { transition-delay: .4s; }
-.products-grid > .reveal:nth-child(6) { transition-delay: .5s; }
-
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .service-card.reveal, .product-card.reveal {
-    opacity: 1; transform: none; transition: none;
-  }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
 /* Safety: if JavaScript is disabled, never leave revealed content hidden. */
 @media (scripting: none) {
-  .reveal, .service-card.reveal, .product-card.reveal {
-    opacity: 1; transform: none; transition: none;
-  }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* ======================= About two-column ===================== */

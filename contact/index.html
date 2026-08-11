@@ -104,32 +104,73 @@
 
   <main id="main">
 
-    <section class="contact-full" aria-labelledby="page-title">
-      <div class="contact-inner">
-        <h1 id="page-title">Get in Touch</h1>
+    <section class="contact-split" aria-labelledby="page-title">
+      <div class="wrap">
+        <h1 id="page-title" class="split-title">Get in Touch</h1>
         <p class="contact-sub">Tell us about your fiberglass or FRP project and we'll get back to you with a quote.</p>
 
-        <!--
-          Enquiry form — replace the action URL below with a real form handler
-          (e.g. a Formspree endpoint https://formspree.io/f/XXXXXXXX, or your
-          host's form service). The form is fully functional once the action is set.
-        -->
-        <form class="enquiry-form" id="enquiryForm" action="#" method="POST" novalidate>
-          <div class="field">
-            <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="name" name="name" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-cta btn-block">Send Enquiry</button>
-          <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
-        </form>
+        <div class="contact-split-grid">
+          <!--
+            Enquiry form — replace the action URL below with a real form handler
+            (e.g. a Formspree endpoint https://formspree.io/f/XXXXXXXX, or your
+            host's form service). The form is fully functional once the action is set.
+          -->
+          <form class="enquiry-form" id="enquiryForm" action="#" method="POST" novalidate>
+            <div class="field">
+              <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-cta btn-block">Send Enquiry</button>
+            <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="contact-details" aria-label="Contact details">
+            <h2>Contact Details</h2>
+
+            <div class="contact-detail">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <span class="contact-detail-label">Address</span>
+                <span class="contact-detail-value">Lot 173, Jalan 3, Kompleks Perabot Olak Lempit,<br>42700 Banting, Selangor, Malaysia</span>
+              </div>
+            </div>
+
+            <!-- TODO: replace placeholder phone number with the real one -->
+            <div class="contact-detail">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div>
+                <span class="contact-detail-label">Phone</span>
+                <span class="contact-detail-value">+60 XX-XXXX XXXX</span>
+              </div>
+            </div>
+
+            <!-- TODO: replace placeholder email with the real address (and set up the mailbox) -->
+            <div class="contact-detail">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+              <div>
+                <span class="contact-detail-label">Email</span>
+                <span class="contact-detail-value"><a href="mailto:enquiry@lsadvance.com.my">enquiry@lsadvance.com.my</a></span>
+              </div>
+            </div>
+
+            <!-- TODO: confirm business / operating hours -->
+            <div class="contact-detail">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <div>
+                <span class="contact-detail-label">Business Hours</span>
+                <span class="contact-detail-value">Monday – Friday: 9:00 AM – 6:00 PM<br>Saturday: 9:00 AM – 1:00 PM</span>
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 

@@ -32,11 +32,17 @@ reappears when you move the pointer near the top edge (pointer devices) or scrol
 (touch). Always shown at the very top of the page and on keyboard focus; disabled for
 `prefers-reduced-motion`. Logic in `Assets/js/main.js`.
 
-**Homepage scroll-reveal ("card swipe-up"):** homepage cards/sections carry a `.reveal`
-class and fade/slide up as they enter the viewport (IntersectionObserver). Disabled for
-`prefers-reduced-motion` and for no-JS. **To revert:** remove the `reveal` class from the
-elements in `index.html`, the `.reveal` CSS block in `styles.css`, and the reveal observer
-in `main.js` (nothing else depends on it).
+**Homepage scroll-reveal (whole-section slide):** each numbered homepage section (01 What
+We Do, 02 About, 03 Products) has `.reveal` on its inner `.wrap` and slides up as a single
+unit when it scrolls into view (IntersectionObserver). Disabled for `prefers-reduced-motion`
+and no-JS. **To revert:** remove the `reveal` class from the section wraps in `index.html`,
+the `.reveal` CSS block in `styles.css`, and the reveal observer in `main.js`.
+
+**Contact page** is a split layout: the enquiry form on one side, a contact-details column
+(address + phone/email/hours) on the other. The address is real; **phone, email, and hours
+are placeholders** (`+60 XX-XXXX XXXX`, `enquiry@lsadvance.com.my`, and default hours) marked
+with `TODO` comments in `contact/index.html` — replace them with the real values before
+relying on the page.
 
 **Company registration number** `1124511-T` in the footer comes from the company's own
 facility signboard (`Assets/Gate Page.png`, "No. Sykt.: 1124511-T"). Verify against SSM
