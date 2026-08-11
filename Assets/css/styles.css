@@ -271,6 +271,9 @@ h1, h2, h3, h4 {
   color: var(--muted); margin: 1.3rem 0 0;
 }
 .hero-trust .sep { color: var(--yellow); margin: 0 .55rem; }
+.hero-trust .tlabel { color: var(--yellow); }
+.hero-trust strong { color: var(--paper); font-weight: 500; }
+.hero-trust--tight { margin-top: .4rem; }
 
 /* ------------------------------ Bands ----------------------------- */
 .section { padding-block: clamp(3rem, 8vw, 6rem); }
