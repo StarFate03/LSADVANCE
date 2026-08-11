@@ -25,7 +25,7 @@
 
   --ring: rgba(37,46,201,.35);
 
-  --maxw: 1120px;
+  --maxw: 1340px;
   --pad: clamp(1.1rem, 4vw, 2.5rem);
   --radius: 14px;
   --radius-sm: 10px;
@@ -618,30 +618,52 @@ a.service-card:hover .card-more { text-decoration: underline; }
 .footer-legal a { color: var(--muted); text-decoration: none; }
 .footer-legal a:hover { color: var(--yellow); }
 
-/* ================= Scroll reveal (card swipe-up) =============== */
+/* ============ Scroll reveal (sequential card turn-up) ========== */
 /* Applied to homepage sections/cards. Isolated so it is easy to revert:
    remove the .reveal classes in index.html + this block + the JS observer. */
+
+/* Base reveal (plain blocks, e.g. the About teaser): simple slide-up. */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .55s ease, transform .55s cubic-bezier(.2, .7, .2, 1);
+  transform: translateY(32px);
+  transition: opacity .55s ease, transform .6s cubic-bezier(.2, .7, .2, 1);
 }
 .reveal.is-visible { opacity: 1; transform: none; }
-/* light stagger within the two homepage grids */
-.services-grid > .reveal:nth-child(2) { transition-delay: .07s; }
-.services-grid > .reveal:nth-child(3) { transition-delay: .14s; }
-.services-grid > .reveal:nth-child(4) { transition-delay: .21s; }
-.products-grid > .reveal:nth-child(2) { transition-delay: .06s; }
-.products-grid > .reveal:nth-child(3) { transition-delay: .12s; }
-.products-grid > .reveal:nth-child(4) { transition-delay: .18s; }
-.products-grid > .reveal:nth-child(5) { transition-delay: .24s; }
-.products-grid > .reveal:nth-child(6) { transition-delay: .30s; }
+
+/* Cards: "slide up and turn into place" — start dropped + tilted back on the
+   X axis, then rise and rotate flat, one after another (sequential stagger). */
+.services-grid, .products-grid { perspective: 1200px; }
+.service-card.reveal, .product-card.reveal {
+  transform: translateY(64px) rotateX(-22deg) scale(.97);
+  transform-origin: center bottom;
+  transition: opacity .55s ease, transform .75s cubic-bezier(.2, .75, .25, 1);
+}
+.service-card.reveal.is-visible, .product-card.reveal.is-visible {
+  transform: translateY(0) rotateX(0) scale(1);
+}
+
+/* Sequential stagger — each card turns up clearly after the previous one. */
+.services-grid > .reveal:nth-child(1) { transition-delay: 0s; }
+.services-grid > .reveal:nth-child(2) { transition-delay: .16s; }
+.services-grid > .reveal:nth-child(3) { transition-delay: .32s; }
+.services-grid > .reveal:nth-child(4) { transition-delay: .48s; }
+.products-grid > .reveal:nth-child(1) { transition-delay: 0s; }
+.products-grid > .reveal:nth-child(2) { transition-delay: .1s; }
+.products-grid > .reveal:nth-child(3) { transition-delay: .2s; }
+.products-grid > .reveal:nth-child(4) { transition-delay: .3s; }
+.products-grid > .reveal:nth-child(5) { transition-delay: .4s; }
+.products-grid > .reveal:nth-child(6) { transition-delay: .5s; }
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .service-card.reveal, .product-card.reveal {
+    opacity: 1; transform: none; transition: none;
+  }
 }
 /* Safety: if JavaScript is disabled, never leave revealed content hidden. */
 @media (scripting: none) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .service-card.reveal, .product-card.reveal {
+    opacity: 1; transform: none; transition: none;
+  }
 }
 
 /* ======================= About two-column ===================== */
