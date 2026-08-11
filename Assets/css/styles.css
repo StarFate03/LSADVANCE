@@ -123,6 +123,14 @@ h1, h2, h3, h4 {
   background: rgba(10, 22, 80, .92);
   backdrop-filter: saturate(140%) blur(8px);
   border-bottom: 1px solid rgba(255,255,255,.08);
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
+}
+/* Auto-hide header: slides out of view; revealed on hover near the top edge
+   (pointer devices) or on scroll-up (touch). Toggled by main.js. */
+.site-header.nav-hidden { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: none; }
 }
 .nav {
   display: flex; align-items: center; justify-content: space-between;
@@ -138,9 +146,11 @@ h1, h2, h3, h4 {
   font-family: var(--ff-display);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .04em;
   color: var(--white);
-  font-size: 1.4rem;
+  font-size: clamp(1.05rem, .8rem + 1.1vw, 1.55rem);
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .nav-menu {
@@ -597,3 +607,69 @@ a.service-card:hover .card-more { text-decoration: underline; }
 }
 .notfound p { color: var(--muted); max-width: 46ch; margin: 0 auto 2rem; font-size: 1.08rem; }
 .notfound .actions { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+
+/* ==================== Footer legal / copyright row ============== */
+.footer-bottom-inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: .5rem 1.6rem;
+}
+.footer-copy { margin: 0; }
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a { color: var(--muted); text-decoration: none; }
+.footer-legal a:hover { color: var(--yellow); }
+
+/* ================= Scroll reveal (card swipe-up) =============== */
+/* Applied to homepage sections/cards. Isolated so it is easy to revert:
+   remove the .reveal classes in index.html + this block + the JS observer. */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .55s ease, transform .55s cubic-bezier(.2, .7, .2, 1);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+/* light stagger within the two homepage grids */
+.services-grid > .reveal:nth-child(2) { transition-delay: .07s; }
+.services-grid > .reveal:nth-child(3) { transition-delay: .14s; }
+.services-grid > .reveal:nth-child(4) { transition-delay: .21s; }
+.products-grid > .reveal:nth-child(2) { transition-delay: .06s; }
+.products-grid > .reveal:nth-child(3) { transition-delay: .12s; }
+.products-grid > .reveal:nth-child(4) { transition-delay: .18s; }
+.products-grid > .reveal:nth-child(5) { transition-delay: .24s; }
+.products-grid > .reveal:nth-child(6) { transition-delay: .30s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+/* Safety: if JavaScript is disabled, never leave revealed content hidden. */
+@media (scripting: none) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ======================= About two-column ===================== */
+.about-layout { display: grid; gap: 2rem; grid-template-columns: 1fr; align-items: start; }
+.about-figure { margin: 0; }
+.about-figure img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.about-figure figcaption {
+  margin-top: .7rem; font-size: .9rem; color: var(--ink-soft); text-align: center;
+}
+@media (min-width: 820px) {
+  .about-layout { grid-template-columns: 1.05fr .95fr; gap: 2.6rem; }
+  .about-figure { position: sticky; top: 96px; }
+}
+
+/* =========================== Legal pages ====================== */
+.legal { max-width: 80ch; }
+.legal .updated { color: var(--ink-soft); font-style: italic; margin: 0 0 1.6rem; }
+.legal h2 {
+  font-family: var(--ff-display); text-transform: uppercase;
+  font-size: clamp(1.3rem, 3vw, 1.7rem); color: var(--ink);
+  margin: 2.2rem 0 .8rem; padding-bottom: .4rem;
+  border-bottom: 2px solid var(--yellow); display: inline-block;
+}
+.legal h3 { font-size: 1.15rem; color: var(--ink); margin: 1.5rem 0 .5rem; }
+.legal p { margin: 0 0 1rem; color: var(--ink-soft); }
+.legal ul, .legal ol { margin: 0 0 1.1rem; padding-left: 1.4rem; color: var(--ink-soft); }
+.legal li { margin: .4rem 0; }
+.legal a { color: var(--blue); }

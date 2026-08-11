@@ -12,15 +12,41 @@ about/index.html      About page          -> /about/
 services/index.html   Services page       -> /services/  (+ 4x Service JSON-LD)
 faq/index.html        FAQ page            -> /faq/       (+ FAQPage JSON-LD)
 contact/index.html    Contact page        -> /contact/   (full-page centered form)
+terms-conditions/index.html  Terms & Conditions -> /terms-conditions/
+privacy-policy/index.html    Privacy Policy     -> /privacy-policy/
 robots.txt            Crawler rules + sitemap reference
-sitemap.xml           All five clean page URLs
+sitemap.xml           All seven clean page URLs
 Assets/
   LS-Logo-transparent.png  Brand logo, transparent bg (nav, footer, splash) — USED
   LS Logo.png              Original logo with light-gray bg (kept as source, unused)
+  Gate Page.png            Original facility signboard photo (source)
+  facility-signboard.{webp,jpg}  Optimized signboard image, shown on the About page
   favicon.svg              Blue+yellow hexagon favicon echoing the logo
+  products/frp-*.{webp,jpg}      Optimized product photos for the homepage gallery
   css/styles.css           All styles (blue + yellow industrial theme, mobile-first)
-  js/main.js               Mobile nav toggle + form validation/UX
+  js/main.js               Nav toggle + form UX + header auto-hide + scroll reveal
 ```
+
+**Header auto-hide:** the sticky header slides out of view when you scroll down and
+reappears when you move the pointer near the top edge (pointer devices) or scroll up
+(touch). Always shown at the very top of the page and on keyboard focus; disabled for
+`prefers-reduced-motion`. Logic in `Assets/js/main.js`.
+
+**Homepage scroll-reveal ("card swipe-up"):** homepage cards/sections carry a `.reveal`
+class and fade/slide up as they enter the viewport (IntersectionObserver). Disabled for
+`prefers-reduced-motion` and for no-JS. **To revert:** remove the `reveal` class from the
+elements in `index.html`, the `.reveal` CSS block in `styles.css`, and the reveal observer
+in `main.js` (nothing else depends on it).
+
+**Company registration number** `1124511-T` in the footer comes from the company's own
+facility signboard (`Assets/Gate Page.png`, "No. Sykt.: 1124511-T"). Verify against SSM
+records; if L&S also has a new 12-digit SSM registration number, add it alongside.
+
+**Legal pages** (`/terms-conditions/`, `/privacy-policy/`) are adapted from a standard
+policy template with L&S Advance's name, address, domain, and Malaysian jurisdiction.
+They should be reviewed by the company before relying on them. The privacy policy routes
+all contact to the enquiry form (`/contact/`) since no business email is confirmed — add
+a real email there once available.
 
 **Clean URLs.** Each inner page is a folder with an `index.html`, so URLs are
 extensionless: `/about/`, `/services/`, `/faq/`, `/contact/` (no `.html`). All internal
