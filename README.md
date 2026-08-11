@@ -6,28 +6,42 @@ Static marketing site for **L&S Advance Sdn. Bhd.**, a fiberglass / FRP manufact
 
 ```
 index.html            Home — hero, "what we do" teasers, about teaser, CTA (+ first-visit splash)
-about.html            About page
-services.html         Services page (+ 4x Service JSON-LD)
-faq.html              FAQ page (+ FAQPage JSON-LD)
-contact.html          Contact page (enquiry form)
+404.html              Not-found page (GitHub Pages serves it for any missing path)
+CNAME                 Custom domain for GitHub Pages (lsadvance.com.my)
+about/index.html      About page          -> /about/
+services/index.html   Services page       -> /services/  (+ 4x Service JSON-LD)
+faq/index.html        FAQ page            -> /faq/       (+ FAQPage JSON-LD)
+contact/index.html    Contact page        -> /contact/   (full-page centered form)
 robots.txt            Crawler rules + sitemap reference
-sitemap.xml           All five page URLs
+sitemap.xml           All five clean page URLs
 Assets/
-  LS Logo.png         Brand logo (used in nav + footer)
-  favicon.svg         Blue+yellow hexagon favicon echoing the logo
-  css/styles.css      All styles (blue + yellow industrial theme, mobile-first)
-  js/main.js          Mobile nav toggle + form validation/UX
+  LS-Logo-transparent.png  Brand logo, transparent bg (nav, footer, splash) — USED
+  LS Logo.png              Original logo with light-gray bg (kept as source, unused)
+  favicon.svg              Blue+yellow hexagon favicon echoing the logo
+  css/styles.css           All styles (blue + yellow industrial theme, mobile-first)
+  js/main.js               Mobile nav toggle + form validation/UX
 ```
 
-Multi-page static site — each page duplicates the same `<header>`/nav and `<footer>`
-markup (no templating engine). The nav CTA and all internal links point to real page
-URLs; the current page's nav link carries `aria-current="page"` with a visible active style.
+**Clean URLs.** Each inner page is a folder with an `index.html`, so URLs are
+extensionless: `/about/`, `/services/`, `/faq/`, `/contact/` (no `.html`). All internal
+links and asset references are **root-relative** (`/about/`, `/Assets/…`) — this works
+because the site is served at the domain root (`lsadvance.com.my`). If you ever host it
+under a sub-path instead (e.g. `user.github.io/REPO/`), these root-relative paths would
+need adjusting.
 
-**First-visit splash:** `index.html` shows a full-screen navy overlay with the "LS" mark
-filling bottom-to-top (~0.9s fill + ~0.3s fade), then reveals the page. It's a CSS
-clip-path animation, runs **once per browser session** (`sessionStorage`), only on the
-home page, and is skipped entirely for `prefers-reduced-motion` users. It's a pure overlay
-on top of fully-present HTML — it never gates content from crawlers.
+Each page duplicates the same `<header>`/nav and `<footer>` markup (no templating engine).
+The current page's nav link carries `aria-current="page"` with a visible active style.
+
+**Logo.** The nav/footer/splash use `LS-Logo-transparent.png` — the original PNG with its
+light-gray background removed and cropped tight, so it sits cleanly on the dark bar with no
+white box. If the client provides an official transparent/vector logo, drop it in and update
+the `src`/`width`/`height` references.
+
+**First-visit splash:** `index.html` shows a full-screen navy overlay with the **whole logo
+(hexagon + "Ls")** filling bottom-to-top (~0.9s fill + ~0.3s fade) via a CSS clip-path
+animation, then reveals the page. Runs **once per browser session** (`sessionStorage`), only
+on the home page, and is skipped entirely for `prefers-reduced-motion` users. It's a pure
+overlay on top of fully-present HTML — it never gates content from crawlers.
 
 ## Run locally
 
@@ -59,7 +73,7 @@ Upload the whole folder to any static host — Netlify, Cloudflare Pages, GitHub
 
 ## BEFORE GOING LIVE — action items
 
-1. **Wire up the enquiry form.** `contact.html` → `<form id="enquiryForm" action="#" …>`. Replace `action="#"` with a real handler:
+1. **Wire up the enquiry form.** `contact/index.html` → `<form id="enquiryForm" action="#" …>`. Replace `action="#"` with a real handler:
    - Easiest: a [Formspree](https://formspree.io) endpoint, e.g. `action="https://formspree.io/f/XXXXXXXX" method="POST"`.
    - Or your host's built-in form service (Netlify Forms, etc.).
    Until this is set, the form validates but blocks submit and shows a helper message (see `Assets/js/main.js`).

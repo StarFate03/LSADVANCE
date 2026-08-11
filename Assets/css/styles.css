@@ -131,15 +131,9 @@ h1, h2, h3, h4 {
   padding: .6rem var(--pad);
 }
 
-.brand { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; }
-.brand-chip {
-  display: inline-grid; place-items: center;
-  background: var(--white);
-  border-radius: 10px;
-  padding: 5px 7px;
-  box-shadow: var(--shadow-sm);
-}
-.brand-logo { width: 40px; height: auto; }
+.brand { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
+/* Transparent logo sits directly on the dark bar — no white chip/box. */
+.brand-logo { width: auto; height: 40px; display: block; }
 .brand-name {
   font-family: var(--ff-display);
   font-weight: 700;
@@ -418,8 +412,7 @@ h1, h2, h3, h4 {
   display: grid; grid-template-columns: 1fr; gap: 2rem;
   padding-block: clamp(2.5rem, 6vw, 4rem);
 }
-.footer-brand .brand-chip { margin-bottom: 1rem; }
-.footer-brand .brand-logo { width: 54px; }
+.footer-brand .brand-logo { height: 56px; margin-bottom: 1rem; }
 .footer-tagline { color: var(--muted); max-width: 34ch; margin: 0; }
 .footer-col h4 {
   font-family: var(--ff-display); text-transform: uppercase; letter-spacing: .08em;
@@ -526,12 +519,56 @@ a.service-card:hover .card-more { text-decoration: underline; }
 .splash.is-active { display: grid; }
 .splash.is-hiding { opacity: 0; transition: opacity .3s ease; }
 .splash.is-done { display: none !important; }
-.splash-mark { width: min(44vw, 200px); height: auto; }
-.splash-mark text { font-family: var(--ff-display); font-weight: 700; text-transform: uppercase; }
-.splash-base { fill: rgba(255,255,255,.12); }
-.splash-fill { fill: var(--yellow); clip-path: inset(100% 0 0 0); }
-.splash.is-active .splash-fill { animation: lsFill .9s cubic-bezier(.4,0,.2,1) forwards; }
+/* Full logo (hexagon shape + "Ls") revealing/filling bottom-to-top. Two stacked
+   copies of the transparent logo: a faint base + the full-colour copy clipped
+   from the bottom edge upward. */
+.splash-logo { position: relative; width: min(46vw, 220px); line-height: 0; }
+.splash-logo img { width: 100%; height: auto; display: block; }
+.splash-logo-base { opacity: .16; }
+.splash-logo-fill { position: absolute; inset: 0; clip-path: inset(100% 0 0 0); }
+.splash.is-active .splash-logo-fill { animation: lsFill .9s cubic-bezier(.4,0,.2,1) forwards; }
 @keyframes lsFill { to { clip-path: inset(0 0 0 0); } }
 @media (prefers-reduced-motion: reduce) {
   .splash { display: none !important; }
 }
+
+/* ================= Contact — full-page centered form ============= */
+.contact-full {
+  min-height: 100vh;
+  display: grid; place-items: center;
+  padding: 6.5rem var(--pad) 3.5rem;   /* clear the sticky header */
+  background:
+    radial-gradient(1000px 500px at 80% -10%, rgba(37,46,201,.4), transparent 60%),
+    linear-gradient(180deg, var(--navy-800), var(--navy-900));
+}
+.contact-inner { width: 100%; max-width: 540px; }
+.contact-inner h1 {
+  text-transform: uppercase; text-align: center; color: var(--white);
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+}
+.contact-inner h1::after {
+  content: ""; display: block; width: 56px; height: 4px;
+  background: var(--yellow); border-radius: 3px; margin: .8rem auto 0;
+}
+.contact-sub { text-align: center; color: var(--muted); margin: 1rem 0 1.9rem; }
+
+/* ===================== 404 — page not found ===================== */
+.notfound {
+  min-height: 100vh;
+  display: grid; place-items: center; text-align: center;
+  padding: 6.5rem var(--pad) 3.5rem;
+  background:
+    radial-gradient(1000px 500px at 80% -10%, rgba(37,46,201,.4), transparent 60%),
+    linear-gradient(180deg, var(--navy-800), var(--navy-900));
+}
+.notfound-inner { max-width: 560px; }
+.notfound .code {
+  font-family: var(--ff-display); font-weight: 700; line-height: .9;
+  font-size: clamp(5rem, 22vw, 11rem); color: var(--yellow);
+}
+.notfound h1 {
+  text-transform: uppercase; color: var(--white);
+  font-size: clamp(1.6rem, 5vw, 2.4rem); margin: .3rem 0 .9rem;
+}
+.notfound p { color: var(--muted); max-width: 46ch; margin: 0 auto 2rem; font-size: 1.08rem; }
+.notfound .actions { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
