@@ -463,8 +463,8 @@ h1, h2, h3, h4 {
   .services-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: .85fr 1.15fr; align-items: start; }
   .footer-grid { grid-template-columns: 1.5fr 1fr 1.3fr; }
-  /* Right-align the Visit column so it lines up with the Privacy/Terms row */
-  .footer-grid .footer-col:last-child { text-align: right; }
+  /* Push the Visit column to the right (padding); text stays left-aligned */
+  .footer-grid .footer-col:last-child { padding-left: clamp(1.5rem, 4vw, 3.5rem); }
 }
 
 /* Mobile nav */
@@ -716,7 +716,7 @@ a.service-card:hover .card-more { text-decoration: underline; }
   .about-layout--home .about-figure picture { display: block; height: 100%; }
   .about-layout--home .about-figure img {
     height: 100%; width: 100%; min-height: 340px;
-    object-fit: cover; object-position: center;
+    object-fit: fill;   /* stretch to fill the column (no crop) */
   }
 }
 
