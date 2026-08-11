@@ -280,6 +280,11 @@ h1, h2, h3, h4 {
 .band-light { background: var(--light); color: var(--ink); }
 .band-dark  { background: var(--navy-800); color: var(--paper); }
 .band-accent{ background: var(--blue); color: var(--white); }
+/* Subtle blueprint dot texture so a light band doesn't read as plain white */
+.band-grid {
+  background-image: radial-gradient(circle, rgba(10, 22, 80, .06) 1.3px, transparent 1.4px);
+  background-size: 26px 26px;
+}
 
 .section-head { margin-bottom: 1.8rem; }
 .section-head h2 {
@@ -436,7 +441,7 @@ h1, h2, h3, h4 {
   display: grid; grid-template-columns: 1fr; gap: 1.6rem;
   padding-block: clamp(1.6rem, 3.5vw, 2.6rem);
 }
-.footer-brand .brand-logo { height: 60px; margin-bottom: .8rem; }
+.footer-brand .brand-logo { height: 46px; margin-bottom: .8rem; }
 .footer-tagline { color: var(--muted); max-width: 34ch; margin: 0; }
 .footer-col h4 {
   font-family: var(--ff-display); text-transform: uppercase; letter-spacing: .08em;
@@ -457,7 +462,9 @@ h1, h2, h3, h4 {
 @media (min-width: 760px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: .85fr 1.15fr; align-items: start; }
-  .footer-grid { grid-template-columns: 1.4fr 1fr 1.4fr; }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1.3fr; }
+  /* Right-align the Visit column so it lines up with the Privacy/Terms row */
+  .footer-grid .footer-col:last-child { text-align: right; }
 }
 
 /* Mobile nav */
@@ -699,6 +706,18 @@ a.service-card:hover .card-more { text-decoration: underline; }
 @media (min-width: 820px) {
   .about-layout { grid-template-columns: 1.05fr .95fr; gap: 2.6rem; }
   .about-figure { position: sticky; top: 96px; }
+}
+
+/* Homepage About card: title sits in the text column, image fills the full
+   height alongside it (top-aligned with the heading, larger). */
+@media (min-width: 820px) {
+  .about-layout--home { align-items: stretch; grid-template-columns: 1fr 1fr; }
+  .about-layout--home .about-figure { height: 100%; }
+  .about-layout--home .about-figure picture { display: block; height: 100%; }
+  .about-layout--home .about-figure img {
+    height: 100%; width: 100%; min-height: 340px;
+    object-fit: cover; object-position: center;
+  }
 }
 
 /* =========================== Legal pages ====================== */
