@@ -39,10 +39,11 @@ and no-JS. **To revert:** remove the `reveal` class from the section wraps in `i
 the `.reveal` CSS block in `styles.css`, and the reveal observer in `main.js`.
 
 **Contact page** is a split layout: the enquiry form on one side, a contact-details column
-(address + phone/email/hours) on the other. The address is real; **phone, email, and hours
-are placeholders** (`+60 XX-XXXX XXXX`, `enquiry@lsadvance.com.my`, and default hours) marked
-with `TODO` comments in `contact/index.html` — replace them with the real values before
-relying on the page.
+on the other. The **address and email (`enquiry@lsadvance.com.my`) are live/real**; the email
+is also in the JSON-LD (`email` + `contactPoint`) on every page carrying Organization/
+LocalBusiness schema. The **phone was removed** (no real number yet — re-add to the contact
+page and schema `telephone` when one exists). **Business hours** are still a default placeholder
+(`TODO` in `contact/index.html`) — confirm before relying on them.
 
 **Company registration number** `1124511-T` in the footer comes from the company's own
 facility signboard (`Assets/Gate Page.png`, "No. Sykt.: 1124511-T"). Verify against SSM
