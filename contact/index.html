@@ -125,11 +125,17 @@
 
         <div class="contact-split-grid">
           <!--
-            Enquiry form — replace the action URL below with a real form handler
-            (e.g. a Formspree endpoint https://formspree.io/f/XXXXXXXX, or your
-            host's form service). The form is fully functional once the action is set.
+            Enquiry form wired to FormSubmit (https://formsubmit.co) — submissions
+            are emailed to enquiry@lsadvance.com.my. ONE-TIME ACTIVATION: the first
+            time the form is submitted, FormSubmit emails that inbox a confirmation
+            link; click it once and the form is live from then on.
           -->
-          <form class="enquiry-form" id="enquiryForm" action="#" method="POST" novalidate>
+          <form class="enquiry-form" id="enquiryForm" action="https://formsubmit.co/enquiry@lsadvance.com.my" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New enquiry — lsadvance.com.my">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <!-- honeypot: hidden from people, catches bots -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
             <div class="field">
               <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
               <input type="text" id="name" name="name" autocomplete="name" required>
