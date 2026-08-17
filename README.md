@@ -110,7 +110,7 @@ Upload the whole folder to any static host — Netlify, Cloudflare Pages, GitHub
    - Easiest: a [Formspree](https://formspree.io) endpoint, e.g. `action="https://formspree.io/f/XXXXXXXX" method="POST"`.
    - Or your host's built-in form service (Netlify Forms, etc.).
    Until this is set, the form validates but blocks submit and shows a helper message (see `Assets/js/main.js`).
-2. **Confirm the domain.** All absolute URLs (canonical, Open Graph, sitemap, robots) use `https://lsadvance.com.my/`. Update them if the final domain differs.
+2. **Confirm the domain.** All absolute URLs (canonical, Open Graph, sitemap, robots) use `https://www.lsadvance.com.my/`. Update them if the final domain differs.
 3. **Logo asset (optional but recommended).** `LS Logo.png` is 1448×1086 with a light-gray background, so it's shown inside a white "chip". For cleaner placement + faster load, export a **transparent-background** version and a **WebP** copy.
 
 ## Content still needed from the client (deliberately omitted, not invented)

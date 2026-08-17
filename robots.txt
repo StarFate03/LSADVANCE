@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lsadvance.com.my/sitemap.xml
+Sitemap: https://www.lsadvance.com.my/sitemap.xml
